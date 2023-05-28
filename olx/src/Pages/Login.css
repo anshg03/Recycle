@@ -1,0 +1,117 @@
+.bg {
+    box-sizing: border-box;
+
+    position: relative;
+    width: 100%;
+    text-align: center;
+    height: 100vh;
+
+    background: linear-gradient(90deg, #8832EB 0%, #2D248D 68.47%);
+    border: 1px solid #000000;
+}
+
+.rect1 {
+    position: absolute;
+    left: 6.55%;
+    right: 44.50%;
+    top: 8.73%;
+    bottom: 8.73%;
+
+    background: #9357EB;
+    border-radius: 50px 0 0 50px;
+}
+
+.rect2 {
+    position: absolute;
+    left: 55.55%;
+    right: 8.01%;
+    top: 8.73%;
+    bottom: 8.73%;
+    text-align: center;
+
+    background: #FFFFFF;
+    border-radius: 0 50px 50px 0;
+}
+
+.welcome-back {
+    position: absolute;
+    left: 15%;
+    top: 37.6%;
+    bottom: 41.30%;
+
+    font-family: "system-ui", "sans-serif";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 23px;
+
+    color: #FFFFFF;
+}
+
+.welcome-text {
+
+    position: absolute;
+    padding-top: 5.2%;
+    left: 10%;
+    right: 2%;
+    top: 48.9%;
+    bottom: 27.34%;
+
+    font-family: "system-ui", "sans-serif";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 23px;
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.login-text {
+    box-sizing: border-box;
+
+    position: absolute;
+    left: 9%;
+    right: 11%;
+    top: 15.23%;
+    bottom: 67.48%;
+    font-family: "system-ui", "sans-serif";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 23px;
+
+    text-align: center;
+
+    color: #000000;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.username {
+    top: 26.64%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+    bottom: 51.11%;
+}
+
+.password {
+    top: 31.64%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+}
+
+.login-button {
+    position: absolute;
+    top: 36.95%;
+}
+
+.google {
+    position: absolute;
+    top: 41.64%;
+
+}
+
+.signup {
+    position: absolute;
+    top: 46.64%;
+}
