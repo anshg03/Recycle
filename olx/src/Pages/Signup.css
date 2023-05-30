@@ -68,7 +68,7 @@
     color: #FFFFFF;
 }
 
-.login-text {
+.signup-text {
     box-sizing: border-box;
 
     position: absolute;
@@ -90,9 +90,14 @@
 }
 
 .username {
-    top: 26.64%;
+    top: 21.64%;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
     bottom: 51.11%;
+}
+
+.email {
+    top: 26.64%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
 }
 
 .password {
@@ -100,7 +105,7 @@
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
 }
 
-.login-button {
+.signup-button {
     position: absolute;
     top: 36.95%;
 }

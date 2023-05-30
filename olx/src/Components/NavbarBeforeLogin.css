@@ -1,0 +1,29 @@
+.navbar {
+    align-items: center;
+    background-color: #262185;
+    height: 10%;
+    color: white;
+}
+
+.heading {
+    position: absolute;
+    margin: 3%;
+    margin-right: 3%;
+
+}
+
+.input {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.credentials {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 3%;
+    margin-left: 10%;
+}
+
+.separator {
+    font-size: xx-large;
+}
