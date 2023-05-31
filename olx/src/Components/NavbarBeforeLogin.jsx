@@ -17,7 +17,6 @@ function NavbarBeforeLogin() {
                 <Text className="separator">I</Text>
                 <Button colorScheme="none" size="lg" name="signup" onClick={() => navigate("/signup")}>Sign Up</Button>
             </HStack>
-
         </Flex>
     )
 }
