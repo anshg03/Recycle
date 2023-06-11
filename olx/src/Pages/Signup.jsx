@@ -1,66 +1,99 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Signup.css";
-import { Text, FormControl, Input, Button, Grid, GridItem } from '@chakra-ui/react'
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    InputGroup,
+    HStack,
+    InputRightElement,
+    Stack,
+    Button,
+    Heading,
+    Text,
+    useColorModeValue,
+    Link,
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-function Signup() {
-    const navigate = useNavigate();
-    const [user, setUser] = useState({
-        fullName: "",
-        email: "",
-        password: ""
-    })
-    const handleSignup = (e) => {
-        fetch('http://localhost:5000/api/signup', {
+export default function SignupCard() {
+    const [showPassword, setShowPassword] = useState(false);
 
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            mode: 'no-cors',
-            body: JSON.stringify(user)
-
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(rejected => {
-                console.log(rejected);
-            });
-    }
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUser(() => {
-            return {
-                ...user,
-                [name]: value
-            }
-        })
-    }
     return (
-        <Grid className="bg" templateColumns="repeat(2, 1fr)">
-            <GridItem className="rect1" w={{ sm: 0, md: "54.72%" }}>
-                <Text className="welcome-back" fontSize={{ sm: 0, lg: 55, xl: 65 }} w={{ lg: "75%" }}>Welcome</Text>
-                <Text className="welcome-text" fontSize={{ sm: 0, lg: 20, xl: 27 }} w={{ lg: "75%" }}>Welcome to our Signup Page! We are thrilled to have you join our community.</Text>
-            </GridItem>
-            <GridItem className="rect2" borderRadius={{ sm: "50", lg: "0 50px 50px 0" }} left={{ sm: "6.55%", lg: "55.55%" }}>
-                <Text className="signup-text" w="80%">Signup to your Account</Text>
-                <FormControl className="username" isRequired>
-                    <Input className="username" placeholder='Username' size="lg" width="71.8%" variant="filled" colorScheme="blue" name="fullName" value={user.fullName} onChange={handleChange} />
-                </FormControl>
-                <FormControl className="email" isRequired>
-                    <Input className="email" placeholder='Email Address' type="email" size="lg" width="71.8%" variant="filled" colorScheme="blue" name="email" value={user.email} onChange={handleChange} />
-                </FormControl>
-                <FormControl className="password" isRequired>
-                    <Input className="password" type="password" placeholder='Password' size="lg" width="71.8%" variant="filled" colorScheme="blue" name="password" value={user.password} onChange={handleChange} />
-                </FormControl>
-                <Button className="signup-button" colorScheme='blue' onClick={handleSignup}>Signup</Button>
-                <br />
-                <Button className="google" colorScheme='gray'>Signup using Google Authentication</Button>
-                <br />
-                <Button className="signup" colorScheme='gray' onClick={() => navigate("/login")}>Already have an Account</Button>
-            </GridItem>
-        </Grid >
-    )
+        <Flex
+            minH={'100vh'}
+            align={'center'}
+            justify={'center'}
+            bg={useColorModeValue('gray.50', 'gray.800')}>
+            <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack align={'center'}>
+                    <Heading fontSize={'4xl'} textAlign={'center'}>
+                        Sign up
+                    </Heading>
+                    <Text fontSize={'lg'} color={'gray.600'}>
+                        to enjoy all of our cool features ✌️
+                    </Text>
+                </Stack>
+                <Box
+                    rounded={'lg'}
+                    bg={useColorModeValue('white', 'gray.700')}
+                    boxShadow={'lg'}
+                    p={8}>
+                    <Stack spacing={4}>
+                        <HStack>
+                            <Box>
+                                <FormControl id="firstName" isRequired>
+                                    <FormLabel>First Name</FormLabel>
+                                    <Input type="text" />
+                                </FormControl>
+                            </Box>
+                            <Box>
+                                <FormControl id="lastName">
+                                    <FormLabel>Last Name</FormLabel>
+                                    <Input type="text" />
+                                </FormControl>
+                            </Box>
+                        </HStack>
+                        <FormControl id="email" isRequired>
+                            <FormLabel>Email address</FormLabel>
+                            <Input type="email" />
+                        </FormControl>
+                        <FormControl id="password" isRequired>
+                            <FormLabel>Password</FormLabel>
+                            <InputGroup>
+                                <Input type={showPassword ? 'text' : 'password'} />
+                                <InputRightElement h={'full'}>
+                                    <Button
+                                        variant={'ghost'}
+                                        onClick={() =>
+                                            setShowPassword((showPassword) => !showPassword)
+                                        }>
+                                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                        </FormControl>
+                        <Stack spacing={10} pt={2}>
+                            <Button
+                                loadingText="Submitting"
+                                size="lg"
+                                bg={'blue.400'}
+                                color={'white'}
+                                _hover={{
+                                    bg: 'blue.500',
+                                }}>
+                                Sign up
+                            </Button>
+                        </Stack>
+                        <Stack pt={6}>
+                            <Text align={'center'}>
+                                Already a user? <Link color={'blue.400'}>Login</Link>
+                            </Text>
+                        </Stack>
+                    </Stack>
+                </Box>
+            </Stack>
+        </Flex>
+    );
 }
-
-export default Signup;

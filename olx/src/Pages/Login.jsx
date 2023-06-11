@@ -1,7 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import "./Login.css";
-import { Text, FormControl, Input, Button, Grid, GridItem } from '@chakra-ui/react'
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    Checkbox,
+    Stack,
+    Link,
+    Button,
+    Heading,
+    Text,
+    useColorModeValue,
+} from '@chakra-ui/react';
 
 function Login() {
     const navigate = useNavigate();
@@ -38,29 +51,57 @@ function Login() {
             });
     }
     return (
-        <Grid className="bg">
-            <div>
-                <GridItem className="rect1" w={{ sm: 0, md: "54.72%" }}>
-                    <Text className="welcome-back" fontSize={{ sm: 0, lg: 55, xl: 65 }} w={{ lg: "75%" }}>Welcome Back</Text>
-                    <Text className="welcome-text" fontSize={{ sm: 0, lg: 20, xl: 27 }} w={{ lg: "75%" }}>Welcome back! Your presence is a breath of fresh air, and we're thrilled to have you back in our digital realm.</Text>
-                </GridItem>
-                <GridItem className="rect2" borderRadius={{ sm: "50", lg: "0 50px 50px 0" }} left={{ sm: "6.55%", lg: "55.55%" }}>
-                    <Text className="login-text" w="80%">Login to your Account</Text>
-                    <FormControl className="username" isRequired>
-                        <Input className="username" placeholder='Username' size="lg" width="71.8%" variant="filled" name="fullName" value={user.fullName} onChange={handleChange} />
-                    </FormControl>
-                    <FormControl className="password" isRequired>
-                        <Input className="password" type="password" placeholder='Password' size="lg" width="71.8%" variant="filled" name="password" value={user.password} onChange={handleChange} />
-                    </FormControl>
-                    <Button className="login-button" colorScheme='blue' onClick={handleLogin}>Login</Button>
-                    <br />
-                    <Button className="google" colorScheme='gray'>Login using Google Authentication</Button>
-                    <br />
-                    <Button className="signup" colorScheme='gray' onClick={() => navigate("/signup")}>Dont't have an Account</Button>
-                </GridItem>
-            </div>
-        </Grid >
-    )
+
+
+        <Flex
+            h={'100vh'}
+            align={'center'}
+            justify={'center'}
+            bg={useColorModeValue('gray.50', 'gray.800')}>
+            <Stack spacing={8} mx={'auto'} w={'xl'} py={12} px={6} h={"xl"}>
+                <Stack align={'center'}>
+                    <Heading fontSize={'4xl'}>Login to your account</Heading>
+                    <Text fontSize={'xl'} color={'gray.600'}>
+                        to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+                    </Text>
+                </Stack>
+                <Box
+                    rounded={'xl'}
+                    bg={useColorModeValue('white', 'gray.700')}
+                    boxShadow={'xl'}
+                    p={8}>
+                    <Stack spacing={4}>
+                        <FormControl id="email">
+                            <FormLabel>Email address</FormLabel>
+                            <Input type="email" />
+                        </FormControl>
+                        <FormControl id="password">
+                            <FormLabel>Password</FormLabel>
+                            <Input type="password" />
+                        </FormControl>
+                        <Stack spacing={10}>
+                            <Stack
+                                direction={{ base: 'column', sm: 'row' }}
+                                align={'start'}
+                                justify={'space-between'}>
+                                <Checkbox>Remember me</Checkbox>
+                                <Link color={'blue.400'}>Forgot password?</Link>
+                            </Stack>
+                            <Button
+                                bg={'blue.400'}
+                                color={'white'}
+                                _hover={{
+                                    bg: 'blue.500',
+                                }}>
+                                Sign in
+                            </Button>
+                        </Stack>
+                    </Stack>
+                </Box>
+            </Stack>
+        </Flex>
+    );
+
 }
 
 export default Login;
