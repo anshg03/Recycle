@@ -14,7 +14,6 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -30,34 +29,47 @@ export default function SignupCard() {
   });
 
   const handleChange = (event) => {
-    setcredentials({ ...credentials, [event.target.name]: event.target.value });
+    setcredentials((credentials) => ({
+      ...credentials,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSignin = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname: credentials.firstname,
-        lastname: credentials.lastname,
-        email: credentials.Email,
-        password: credentials.password,
-        location: credentials.geolocation,
-      }),
-    });
-    const json = await response.json();
-    console.log(json);
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstname: credentials.firstname,
+          lastname: credentials.lastname,
+          email: credentials.Email,
+          password: credentials.password,
+        }),
+      });
+      //console.log(response);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-    if (!json.success) {
-      alert("Enter Valid Credentials");
-    } else {
-      localStorage.setItem("token", json.authToken);
-      navigate("/login");
+      const json = await response.json();
+      console.log(json);
+
+      if (!json.success) {
+        alert("Enter Valid Credentials");
+      } else {
+        localStorage.setItem("token", json.authToken);
+        navigate("/Login");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred during sign up. Please try again later.");
     }
   };
+
   return (
     <Flex
       minH={"100vh"}
@@ -105,10 +117,6 @@ export default function SignupCard() {
                 </FormControl>
               </Box>
             </HStack>
-            {/* <FormControl id="fullName" isRequired>
-                            <FormLabel>Name</FormLabel>
-                            <Input type="text" />
-                        </FormControl> */}
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
               <Input
