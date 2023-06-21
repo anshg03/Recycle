@@ -24,7 +24,7 @@ export default function SignupCard() {
   const [credentials, setcredentials] = useState({
     firstname: "",
     lastname: "",
-    Email: "",
+    email: "",
     password: "",
   });
 
@@ -40,29 +40,29 @@ export default function SignupCard() {
     try {
       const response = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
+        mode: "cors",
+        cache: "no-cache",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstname: credentials.firstname,
-          lastname: credentials.lastname,
-          email: credentials.Email,
+          fullName: credentials.firstname + " " + credentials.lastname,
+          email: credentials.email,
           password: credentials.password,
         }),
       });
-      //console.log(response);
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const json = await response.json();
-      console.log(json);
 
-      if (!json.success) {
+      if (!json.status) {
         alert("Enter Valid Credentials");
       } else {
         localStorage.setItem("token", json.authToken);
-        navigate("/Login");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -121,8 +121,8 @@ export default function SignupCard() {
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
-                name="Email"
-                value={credentials.Email}
+                name="email"
+                value={credentials.email}
                 onChange={handleChange}
               />
             </FormControl>

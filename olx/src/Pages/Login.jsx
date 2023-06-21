@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import axios from "axios";
 import {
   Flex,
   Box,
@@ -41,14 +40,12 @@ function Login() {
       }),
     });
     const json = await response.json();
-    console.log(json);
 
     if (!json.success) {
       alert("Enter Valid Credentials");
     }
     if (json.success) {
       localStorage.setItem("authToken", json.authToken);
-      console.log(localStorage.getItem("authToken"));
       navigate("/");
     }
   };
@@ -77,8 +74,8 @@ function Login() {
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
-                name="Email"
-                value={credentials.Email}
+                name="email"
+                value={credentials.email}
                 onChange={handleChange}
               />
             </FormControl>
@@ -98,7 +95,7 @@ function Login() {
                 justify={"space-between"}
               >
                 <Checkbox>Remember me</Checkbox>
-                <Link color={"blue.400"}>Forgot password?</Link>
+                <Link color={"blue.400"} onClick={() => navigate("/signup")} >Don't have an account</Link>
               </Stack>
               <Button
                 bg={"blue.400"}
@@ -108,7 +105,7 @@ function Login() {
                 }}
                 onClick={handleLogin}
               >
-                Sign in
+                Log in
               </Button>
             </Stack>
           </Stack>
