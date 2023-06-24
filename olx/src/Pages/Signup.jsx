@@ -58,7 +58,7 @@ export default function SignupCard() {
 
       const json = await response.json();
 
-      if (!json.status) {
+      if (!json.response) {
         alert("Enter Valid Credentials");
       } else {
         localStorage.setItem("token", json.authToken);

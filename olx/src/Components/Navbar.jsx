@@ -44,6 +44,11 @@ const Navbar = () => {
                   className="input"
                 />
               </li>
+              <li>
+                <NavLink to="/sell">
+                  <button class="sell-button">Sell</button>
+                </NavLink>
+              </li>
             </ul>
             {/* hamburger menu start  */}
             <div className="hamburger-menu">
