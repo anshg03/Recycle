@@ -32,6 +32,11 @@ const Navbar = () => {
             <li>
               <NavLink to="/signup">signup</NavLink>
             </li>
+            <li>
+              <NavLink to="/sell" >
+                Sell
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="social-media">
@@ -44,11 +49,7 @@ const Navbar = () => {
                   className="input"
                 />
               </li>
-              <li>
-                <NavLink to="/sell">
-                  <button class="sell-button">Sell</button>
-                </NavLink>
-              </li>
+
             </ul>
             {/* hamburger menu start  */}
             <div className="hamburger-menu">
