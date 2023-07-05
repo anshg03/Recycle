@@ -1,13 +1,11 @@
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
   FormLabel,
   GridItem,
   Heading,
   Input,
-  Select,
   SimpleGrid,
   Text,
   Textarea,
@@ -17,25 +15,11 @@ import {
   InputLeftAddon,
   InputRightAddon,
   Center,
-  Divider,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Sell = () => {
-  const navigate = useNavigate();
-  const otpVerify = () => {
-    const response = fetch("http://localhost:5000/api/sell/verifydetails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        otp: "1234",
-        phoneNo: "7428669036",
-      }),
-    });
-  };
   const [details, setDetails] = useState({
     name: "",
     email: "",
@@ -43,7 +27,26 @@ const Sell = () => {
     amount: 0,
     proImage: [],
     phoneNo: "",
+    num: ""
   });
+
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    const num = Math.floor(Math.random() * 10000);
+    details.num = num
+    fetch("http://localhost:5000/api/product/sell/verifydetails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        otp: num,
+        phoneNo: details.phoneNo,
+      }),
+    });
+    navigate("/sell/verifydetails", { state: details });
+  };
+
   const handleFileUpload = (event) => {
     const files = event.target.files;
     if (files.length > 5) {
@@ -62,7 +65,6 @@ const Sell = () => {
       ...details,
       [name]: value,
     });
-    console.log(details);
   };
 
   return (
@@ -147,11 +149,6 @@ const Sell = () => {
               <Text fontSize="xl">Select up to 5 images</Text>
             </FormControl>
           </GridItem>
-          <GridItem colSpan={2}>
-            <Center>
-              <Divider height={"1px"} bg={"black"} />
-            </Center>
-          </GridItem>
           <GridItem colSpan={[2, 2, 1]}>
             <FormControl>
               <FormLabel fontSize="3xl">Email *</FormLabel>
@@ -186,19 +183,7 @@ const Sell = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Center>
-              <Button size="lg" onClick={otpVerify}>
-                Verify Details
-              </Button>
-            </Center>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <Center>
-              <Divider height={"1px"} bg={"black"} />
-            </Center>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <Center>
-              <Button size={"lg"}>Sell Product</Button>
+              <Button size={"lg"} onClick={handleSubmit}>Sell Product</Button>
             </Center>
           </GridItem>
         </SimpleGrid>

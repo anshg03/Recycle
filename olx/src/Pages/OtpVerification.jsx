@@ -1,7 +1,11 @@
 import { Box, VStack, Heading, useColorModeValue, Center, Input, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Otp() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const data = location.state;
     const [code, setCode] = useState("");
     const [otp, setOtp] = useState({
         first: "",
@@ -9,6 +13,10 @@ function Otp() {
         third: "",
         fourth: ""
     });
+
+    useEffect(() => {
+        setCode(otp.first + otp.second + otp.third + otp.fourth);
+    }, [otp])
     const handleChange = (e) => {
         const { name, value } = e.target;
         setOtp({
@@ -16,8 +24,37 @@ function Otp() {
             [name]: value
         })
     }
-    const verify = () => {
-        setCode(otp.first + otp.second + otp.third + otp.fourth);
+    const verify = async () => {
+        // match otp controller call
+        let verified = false;
+        await fetch("http://localhost:5000/api/product/sell/verifydetails/match", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                enterOtp: code,
+                otp: data.num,
+            }),
+        }).then((res) => res.json()).then((json) => {
+            if (json.success) verified = true;
+            console.log(json)
+        });
+        fetch("http://localhost:5000/api/product/sell/verified", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+                description: data.description,
+                amount: data.amount,
+                proImage: data.proImage,
+                phoneNo: data.phoneNo
+            }),
+        });
+        navigate("/");
     }
     return (
         <VStack padding={50} spacing={5}>
